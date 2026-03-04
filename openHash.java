@@ -14,7 +14,10 @@ public class openHash {
 
     // Polynomial rolling hash
     public int hash(String key) {
-      
+      long h = 0;
+        for (int i = 0; i < key.length(); i++)
+            h = (h * 31 + key.charAt(i)) % m;
+        return (int)(h % m) + 1;
     }
 
     // Insert key-value pair... update value if key already present
