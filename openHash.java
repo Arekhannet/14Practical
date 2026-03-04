@@ -22,7 +22,12 @@ public class openHash {
 
     // Insert key-value pair... update value if key already present
     public void insert(String key, String value) {
-       
+        if (isFull()) throw new RuntimeException("Hash table is full");
+        int i = hash(key);
+        int r = 1;
+        while (keys[i] != null && !keys[i].equals(key)) {
+            i = (i - 1 + r * PROBE_PRIME) % m + 1;
+            r++;
         }
         if (keys[i] == null) count++;
         keys[i]   = key;
