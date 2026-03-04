@@ -6,7 +6,10 @@ public class openHash {
     private static final int PROBE_PRIME = 7;
 
     public openHash(int m) {
-        
+         this.m = m;
+        keys   = new String[m + 1]; // indices [1..m], d[0] unused
+        values = new String[m + 1];
+        count  = 0;
     }
 
     // Polynomial rolling hash
