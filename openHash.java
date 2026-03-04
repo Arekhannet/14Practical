@@ -36,7 +36,12 @@ public class openHash {
 
     // Returns value associated with key, or null if not in table
     public String lookup(String key) {
-       
+       int i = hash(key);
+        int r = 1, probes = 0;
+        while (keys[i] != null && probes < m) {
+            if (keys[i].equals(key)) return values[i];
+            i = (i - 1 + r * PROBE_PRIME) % m + 1;
+            r++; probes++;
         }
         return null;
     }
