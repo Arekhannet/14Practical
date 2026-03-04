@@ -48,7 +48,15 @@ public class openHash {
 
     // Removes key-value pair and returns value, or null if not found
     public String remove(String key) {
-      
+       int i = hash(key);
+        int r = 1, probes = 0;
+        while (keys[i] != null && probes < m) {
+            if (keys[i].equals(key)) {
+                String val = values[i];
+                keys[i] = null; values[i] = null;
+                count--;
+                rehashFrom(i);
+                return val;
             }
             i = (i - 1 + r * PROBE_PRIME) % m + 1;
             r++; probes++;
@@ -58,7 +66,13 @@ public class openHash {
 
     // Reinsert any entries displaced by the deletion
     private void rehashFrom(int start) {
-      
+       int i = start % m + 1;
+        while (keys[i] != null) {
+            String k = keys[i], v = values[i];
+            keys[i] = null; values[i] = null;
+            count--;
+            insert(k, v);
+            i = i % m + 1;
         }
     }
 
